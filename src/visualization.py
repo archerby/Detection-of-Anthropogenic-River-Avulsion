@@ -3,6 +3,7 @@ import numpy as np
 
 def plot_structure_composite(data, bright_norm, dark_norm, 
                              thresh_bright=None, thresh_dark=None, 
+                             percentiles=None,
                              output_path=None):
     """
     Generate a composite visualization of structural detection results.
@@ -11,10 +12,16 @@ def plot_structure_composite(data, bright_norm, dark_norm,
         data (np.ndarray): Original background data (e.g., PC3).
         bright_norm (np.ndarray): Normalized bright ridge response.
         dark_norm (np.ndarray): Normalized dark ridge response.
-        thresh_bright (float, optional): Threshold for showing bright ridges. Defaults to 95th percentile.
-        thresh_dark (float, optional): Threshold for showing dark ridges. Defaults to 95th percentile.
+        thresh_bright (float, optional): Manual threshold for showing bright ridges.
+        thresh_dark (float, optional): Manual threshold for showing dark ridges.
+        percentiles (tuple, optional): (bright_pct, dark_pct) to calculate thresholds automatically.
         output_path (str or Path, optional): Path to save the figure. If None, shows the plot.
     """
+    if percentiles is not None:
+        if len(percentiles) >= 2:
+            thresh_bright = np.percentile(bright_norm, percentiles[0])
+            thresh_dark = np.percentile(dark_norm, percentiles[1])
+            
     if thresh_bright is None:
         thresh_bright = np.percentile(bright_norm, 95)
     if thresh_dark is None:
