@@ -1,24 +1,36 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_structure_composite(original_data, bright_norm, dark_norm, output_path=None, percentiles=(95, 95)):
+def plot_structure_composite(data, bright_norm, dark_norm, 
+                             thresh_bright=None, thresh_dark=None, 
+                             output_path=None):
     """
-    Generates a composite visualization of the structural detection.
+    Generate a composite visualization of structural detection results.
     
     Args:
-        original_data: The background data (e.g. PC3).
-        bright_norm: Normalized bright ridge detection.
-        dark_norm: Normalized dark ridge detection.
-        output_path: Path to save the figure (optional).
-        percentiles: Tuple of (bright_percentile, dark_percentile).
+        data (np.ndarray): Original background data (e.g., PC3).
+        bright_norm (np.ndarray): Normalized bright ridge response.
+        dark_norm (np.ndarray): Normalized dark ridge response.
+        thresh_bright (float, optional): Threshold for showing bright ridges. Defaults to 95th percentile.
+        thresh_dark (float, optional): Threshold for showing dark ridges. Defaults to 95th percentile.
+        output_path (str or Path, optional): Path to save the figure. If None, shows the plot.
     """
-    thresh_bright = np.percentile(bright_norm, percentiles[0])
-    thresh_dark = np.percentile(dark_norm, percentiles[1])
-    
+    if thresh_bright is None:
+        thresh_bright = np.percentile(bright_norm, 95)
+    if thresh_dark is None:
+        thresh_dark = np.percentile(dark_norm, 95)
+        
     fig, ax = plt.subplots(figsize=(18, 12))
     
-    # Background: Original Data (Greyscale)
-    plt.imshow(original_data, cmap='gray', vmin=np.nanpercentile(original_data, 2), vmax=np.nanpercentile(original_data, 98), interpolation='nearest', alpha=1.0)
+    # Background: Original (Greyscale)
+    # Robust scaling for background
+    valid_data = data[~np.isnan(data)]
+    if valid_data.size > 0:
+        vmin, vmax = np.percentile(valid_data, [2, 98])
+    else:
+        vmin, vmax = -2, 4 # Fallback
+        
+    plt.imshow(data, cmap='gray', vmin=vmin, vmax=vmax, interpolation='nearest', alpha=1.0)
     
     # Overlay Bright -> Red/Orange
     bright_viz = np.ma.masked_where(bright_norm < thresh_bright, bright_norm)
@@ -28,16 +40,11 @@ def plot_structure_composite(original_data, bright_norm, dark_norm, output_path=
     dark_viz = np.ma.masked_where(dark_norm < thresh_dark, dark_norm)
     plt.imshow(dark_viz, cmap='Blues', interpolation='nearest', alpha=0.7, vmin=thresh_dark, vmax=1.0)
     
-    plt.title("Structural Detection (Frangi Vesselness)")
+    plt.title("Structural Detection Composite")
     plt.axis('off')
-    
-    plt.figtext(0.5, 0.02, 
-               "Red = Bright Ridges (High Values)\nBlue = Dark Ridges (Low Values)", 
-               ha='center', fontsize=12, color='white', bbox=dict(facecolor='black', alpha=0.7))
     
     if output_path:
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        print(f"Saved visualization: {output_path}")
         plt.close()
     else:
         plt.show()
