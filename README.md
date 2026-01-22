@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.9-blue)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/username/detection-of-anthropogenic-river-avulsion/blob/main/notebooks/03_analysis_meijering.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/archerby/detection-of-anthropogenic-river-avulsion/blob/main/notebooks/03_analysis_meijering.ipynb)
 
 ## Story
 This repository contains the algorithms used to detect the 19th-century avulsion of the Iput River (Dobrush, Belarus). By combining **Meijering ridge detection** on topographic data (FABDEM) with **Sentinel-2 spectral indices** (NDRE), we reveal a "Ghost River"—a massive paleochannel system abandoned due to anthropogenic engineering (the derivation canal construction).
