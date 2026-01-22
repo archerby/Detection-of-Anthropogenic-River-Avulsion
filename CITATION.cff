@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Novikau"
+    given-names: "Pavel"
+title: "Detection of Anthropogenic River Avulsion Using Multi-Sensor Remote Sensing Fusion and Historical Correlation: A Case Study of the Iput River Basin (Belarus)"
+version: 1.0.0
+date-released: 2026-01-22

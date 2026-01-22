@@ -1,0 +1,17 @@
+name: river-avulsion
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - rasterio
+  - scikit-image
+  - matplotlib
+  - geopandas
+  - ipykernel
+  - jupyter
+  - pip
+  - pip:
+    - sentinelsat
+    - opencv-python

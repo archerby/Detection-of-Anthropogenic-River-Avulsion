@@ -1,0 +1,12 @@
+# Data
+data/raw/*
+data/processed/*
+!data/final/*.geojson
+!data/sample/*
+
+# System
+__pycache__/
+*.ipynb_checkpoints
+.env
+.DS_Store
+.vscode/
