@@ -18,7 +18,7 @@ conda activate river-avulsion
 
 1.  **Clone the repo**:
     ```bash
-    git clone https://github.com/username/detection-of-anthropogenic-river-avulsion.git
+    git clone https://github.com/archerby/detection-of-anthropogenic-river-avulsion.git
     cd detection-of-anthropogenic-river-avulsion
     ```
 2.  **Run the analysis**:
