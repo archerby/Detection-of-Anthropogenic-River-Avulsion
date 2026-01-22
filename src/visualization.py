@@ -52,6 +52,5 @@ def plot_structure_composite(data, bright_norm, dark_norm,
     
     if output_path:
         plt.savefig(output_path, dpi=300, bbox_inches='tight')
-        plt.close()
-    else:
-        plt.show()
+        
+    plt.show()
